@@ -71,6 +71,60 @@ public class Logic {
     public boolean isWin() {
         int[][] table = this.convert();
         boolean result = false;
+        int index=-1;
+        boolean place=false; //используем переменную place для определения выигрышной позиции horizontal or vertical
+                             //if true then horizontal -- else vertical
+
+        //поиск place и строки
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                if (table[i][j] == 1) {
+                    if (table[i][j + 1] == 1) {
+                        place=true;
+                        index = i;
+                        break;
+                    }
+
+                } else {
+                    break;
+                }
+            }
+        }
+        //поиск place и столбца
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                if (table[j][i] == 1) {
+                    if (table[j+1][j] == 1) {
+                        place=false;
+                        index = j;
+                        break;
+                    }
+
+                } else {
+                    break;
+                }
+            }
+        }
+//исходя из позиции выбираем способ проверки : if true then horizontal -- else vertical
+if(place){
+    for (int j = 0; j < table.length; j++) {
+        if (table[index][j]==1) {
+            result = true;
+        } else {
+            result = false;
+            break;
+        }
+    }
+} else {
+    for (int j = 0; j < table.length; j++) {
+        if (table[j][index]==1) {
+            result = true;
+        } else {
+            result = false;
+            break;
+        }
+    }
+}
         return result;
     }
 
